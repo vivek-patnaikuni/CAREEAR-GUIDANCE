@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Domain Recommendation - Result</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    body {
+      background-image: url('bg-dark.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+      margin: 0;
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    /* FADE OUT (ADDED) */
+    body.fade-out {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .result-panel {
+      position: relative; /* ADDED */
+      width: 90%;
+      max-width: 1400px;
+      margin: 28px auto;
+      border-radius: 30px;
+      padding: 48px 28px;
+      background: rgba(0,0,0,0.35);
+      box-shadow: 0 22px 48px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* CLOSE BUTTON (ADDED) */
+    .close-btn {
+      position: absolute;
+      top: 28px;
+      right: 32px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.95);
+      color: #111;
+      font-size: 26px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+    }
+
+    .result-title {
+      font-size: 64px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #fff;
+      text-align: left;
+      letter-spacing: 1px;
+    }
+    .result-title .highlight { color: #ff8200; }
+
+    .split-pill {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 110px;
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .left-pill {
+      flex: 0 0 220px;
+      height: 100%;
+      border-radius: 56px;
+      background: linear-gradient(90deg, #ffffff, #e8e8e8);
+      color: #111;
+      font-size: 26px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 6px 18px rgba(0,0,0,0.06), 0 12px 30px rgba(0,0,0,0.18);
+    }
+
+    .right-pill {
+      flex: 1;
+      height: 100%;
+      border-radius: 56px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 40px;
+      font-weight: 700;
+      padding: 0 28px;
+      text-align: center;
+    }
+
+    .desc-wrap {
+      margin-top: 35px;
+      width: 80%;
+      margin-left: 19%;
+      text-align: center;
+    }
+
+    .domain-desc {
+      font-size: 22px;
+      color: #e6e6e6;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .reason-desc {
+      font-size: 18px;
+      color: #d0d0d0;
+      line-height: 1.6;
+      margin-top: 6px;
+      opacity: 0.95;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="result-panel">
+    <!-- ❌ ADDED -->
+    <button class="close-btn" onclick="goHome()">×</button>
+
+    <div class="result-title">
+      DOMAIN <span class="highlight">RECOMMENDATION</span>
+    </div>
+
+    <div class="split-pill">
+      <div class="left-pill">DOMAIN NAME</div>
+      <div id="predictedDomain" class="right-pill">—</div>
+    </div>
+
+    <div class="desc-wrap">
+      <div id="domainDesc" class="domain-desc">Loading...</div>
+      <div id="reasonDesc" class="reason-desc"></div>
+    </div>
+  </div>
+
+  <script>
+    function goHome() {
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = "index.html#top";
+      }, 300);
+    }
+
+    const domainMap = {
+      "AI": "Artificial Intelligence",
+      "Web": "Web Development",
+      "Cloud": "Cloud Computing",
+      "Cyber": "Cyber Security",
+      "Data": "Data Analyst",
+      "Mobile": "Mobile App Development"
+    };
+
+    (function () {
+      const data = JSON.parse(localStorage.getItem("cg_result") || "{}");
+      let domain = data.domain || "—";
+      if (domainMap[domain]) domain = domainMap[domain];
+
+      document.getElementById("predictedDomain").textContent = domain;
+      document.getElementById("domainDesc").textContent = data.reason || "";
+
+      const skills = data.skill_keywords || [];
+      const interests = data.interests_list || [];
+
+      let reasonText = "";
+      if (skills.length && interests.length) {
+        reasonText =
+          `Your resume shows strong exposure to ${skills.join(", ")}, which strongly relate to ${domain}. ` +
+          `Additionally, your selected interests (${interests.join(", ")}) clearly indicate your natural inclination towards this field. ` +
+          `${domain} becomes the most suitable and natural domain for you.`;
+      }
+      document.getElementById("reasonDesc").textContent = reasonText;
+    })();
+  </script>
+
+</body>
+</html>

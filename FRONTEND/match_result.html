@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Domain Skill Match - Result</title>
+
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+
+    html,body {
+      height: 100%;
+      margin: 0;
+      font-family: "Times New Roman", Times, serif;
+      background-image: url('bg-dark.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /*FADE OUT  */
+    body.fade-out {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .result-wrap {
+      position: relative; 
+      width: 90%;
+      max-width: 1400px;
+      margin: 24px auto 60px;
+      padding: 48px 36px;
+      border-radius: 30px;
+      background: rgba(0,0,0,0.45);
+      box-shadow: 0 22px 48px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+
+    /* CLOSE BUTTON  */
+    .close-btn {
+      position: absolute;
+      top: 28px;
+      right: 32px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.95);
+      color: #111;
+      font-size: 26px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+      z-index: 10;
+    }
+
+    /* Title - both SKILL & MATCH in #ff8200 per request */
+    .result-title {
+      font-size: 64px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 22px;
+      letter-spacing: 1px;
+    }
+    .result-title .orange { color: #ff8200; }
+
+    /* MATCH % pill area at top (left side pill + right large empty outline) */
+    .match-row {
+      display:flex;
+      align-items:center;
+      gap: 28px;
+      margin: 12px 24px 8px 24px;
+    }
+
+    .match-label-pill {
+      min-width: 260px;
+      padding: 20px 30px;
+      border-radius: 60px;
+      background: linear-gradient(90deg,#efefef 0%, #e6e6e6 100%);
+      color: #111;
+      font-weight:700;
+      font-size:26px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: inset 0 6px 18px rgba(0,0,0,0.04), 0 12px 30px rgba(0,0,0,0.12);
+    }
+
+    .match-visual {
+      flex: 1;
+      min-height: 110px;
+      border-radius: 60px;
+      border: 1px solid rgba(255,255,255,0.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: transparent;
+      position: relative;
+      padding: 10px 28px;
+    }
+
+    .match-percent {
+      font-size: 40px;
+      font-weight: 700;
+      color: #fff;
+      text-align:center;
+    }
+
+    .match-grid {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      margin-top: 36px;
+      align-items: start;
+    }
+
+    .card {
+      width: 100%;
+      min-height: auto;
+      border-radius: 40px;
+      padding: 38px 32px;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.25);
+      overflow: visible;
+    }
+
+    .card ul {
+      margin-top: 30px;
+      padding-left: 20px;
+      color: #fff;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .card .pill-header {
+      position: absolute;
+      top: -22px;
+      left: 22px;
+      padding: 18px 28px;
+      border-radius: 40px;
+      background: linear-gradient(90deg,#efefef 0%, #e6e6e6 100%);
+      color: #111;
+      font-weight:700;
+      font-size:24px;
+      box-shadow: inset 0 6px 18px rgba(0,0,0,0.04), 0 10px 20px rgba(0,0,0,0.12);
+    }
+
+    .spacer { height: 18px; }
+
+    @media (max-width: 920px){
+      .result-title { font-size: 44px; text-align:center; }
+      .match-row { flex-direction: column; gap: 18px; margin: 12px; }
+      .match-label-pill { min-width: 200px; font-size:20px; }
+      .match-percent { font-size:28px; }
+      .match-grid { grid-template-columns: 1fr; }
+      .card { min-height: 200px; }
+      .card .pill-header { left: 20px; top: -18px; padding: 12px 20px; font-size:18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="result-wrap">
+
+    <!-- ❌ CLOSE BUTTON (ADDED ONLY) -->
+    <button class="close-btn" onclick="goHome()">×</button>
+
+    <div class="result-title">DOMAIN <span class="orange">SKILL MATCH</span></div>
+
+    <div class="match-row">
+      <div class="match-label-pill">MATCH %</div>
+      <div class="match-visual">
+        <div id="matchPercent" class="match-percent">0%</div>
+      </div>
+    </div>
+
+    <div class="spacer" aria-hidden="true"></div>
+
+    <div class="match-grid">
+      <div class="card">
+        <div class="pill-header">STRENGTHS</div>
+        <ul id="strengthsList"></ul>
+      </div>
+
+      <div class="card">
+        <div class="pill-header">FOCUS AREAS</div>
+        <ul id="focusList"></ul>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function goHome() {
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = "index.html#top";
+      }, 300);
+    }
+
+    (function(){
+      const data = JSON.parse(localStorage.getItem('cg_result') || '{}');
+
+      const percent = (typeof data.percent === 'number') ? data.percent : 0;
+      const strengths = Array.isArray(data.strengths) ? data.strengths : [];
+      const focus = Array.isArray(data.focus) ? data.focus : [];
+
+      document.getElementById('matchPercent').textContent = percent + '%';
+
+      document.getElementById('strengthsList').innerHTML =
+        strengths.length ? strengths.map(s => `<li>${s}</li>`).join('') : '<li>—</li>';
+
+      document.getElementById('focusList').innerHTML =
+        focus.length ? focus.map(s => `<li>${s}</li>`).join('') : '<li>—</li>';
+    })();
+  </script>
+
+</body>
+</html>

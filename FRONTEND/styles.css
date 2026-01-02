@@ -1,0 +1,509 @@
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  font-family: "Times New Roman", Times, serif;
+  color: #eee;
+  line-height: 1.4;
+  padding-bottom: 60px;
+  margin: 0;
+
+ 
+  background-image: url('school-bg.png'), url('school-bg.jpg');
+
+  
+  background-repeat: repeat;
+  background-size: auto;            
+  background-position: top left;
+
+  
+  background-attachment: fixed;
+
+  
+  background-color: rgba(0,0,0,0.05);
+  background-blend-mode: lighten;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* Top nav (if present) */
+.topnav {
+  position: sticky;
+  top: 0;
+  background: transparent;
+  padding: 10px 20px;
+  z-index: 50;
+}
+.nav-inner {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  max-width:1200px;
+  margin:0 auto;
+}
+.brand { font-weight:700; color:#222; }
+.nav-links .nav-btn { margin-left:8px; padding:8px 12px; border-radius:6px; border:0; background:#fff; cursor:pointer; }
+
+/* HERO */
+.hero {
+  width: 90%;
+  max-width: 1400px;
+  margin: 28px auto;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.hero-dark {
+  height: 420px;
+  background-image: url('bg-dark.png');
+  background-size: cover;
+  background-position: center;
+  padding: 32px 40px;
+  box-shadow: 0 22px 48px rgba(0,0,0,0.45);
+}
+
+.hero-container {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  height:100%;
+  gap: 24px;
+  position: relative; /* keep children positioning local */
+}
+
+.hero-left { flex:1; padding-left: 3.5%; }
+.hero-career {
+  font-size: 88px;
+  color: #fff;
+  line-height: .92;
+  margin-bottom: 6px;
+}
+.hero-guidance {
+  font-size: 72px;
+  color: #e9923a;
+  line-height: .92;
+}
+
+/* ==== BUTTON STACK  ==== */
+.hero-right {
+  position: relative;           /* visual shift without reflow */
+  left: -90px;                  /* <-- main tweak: move the whole column left visually */
+  width: 360px;                 /* fixed column width for consistent look */
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+  align-items:flex-start;       /* left-align pills inside column for symmetry */
+  z-index: 10;
+}
+
+/* pills: identical width for perfect symmetry */
+.pill {
+  width: 320px;                
+  max-width: calc(100% - 8px);  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 30px;
+  border-radius:44px;
+  font-weight:700;
+  color:#111;
+  border:0;
+  box-shadow: 0 18px 28px rgba(0,0,0,0.25);
+  cursor:pointer;
+  font-size:18px;
+  background: rgba(255,255,255,0.95);
+  line-height: 1.05;
+}
+.pill:hover, .pill:focus {
+  transform: translateY(-6px) scale(1.02);
+  transition: transform 0.22s ease;
+  box-shadow: 0 24px 36px rgba(0,0,0,0.30);
+}
+
+/* ---- Sections ---- */
+.section-wrap {
+  width: 90%;
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 0;
+}
+
+.section-divider { display: none; }
+
+.panel {
+  border-radius: 32px;
+  background-image: url('bg-dark.png');
+  background-size: cover;
+  background-position: center;
+  padding: 56px 64px;
+  box-shadow: 0 22px 48px rgba(0,0,0,0.35);
+  color: #fff;
+  width: 100%;
+  min-height: 420px;
+  position:relative;
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+/* Title: normal white; last word orange when wrapped in a span */
+.section-title {
+  font-size: 48px;
+  font-family: "Times New Roman", Times, serif;
+  margin-bottom: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+}
+/* default last-word color (keeps your earlier look) */
+.section-title span { color: #e9923a; }
+
+/* === Specific override for Domain Recommendation panel ===
+   We keep this scoped to the domain-panel class so other panels remain unchanged.
+   Make sure the Domain Recommendation panel has: class="panel domain-panel" in HTML.
+*/
+.panel.domain-panel .section-title { color: #fff; }           /* ensure first portion white */
+.panel.domain-panel .section-title span { color: #ff8200; }    /* 'RECOMMENDATION' -> #ff8200 */
+
+/* Add vertical divider + arrow between left and right columns,
+   but only for the domain-panel (so other sections don't show it). */
+.panel.domain-panel .panel-body {
+  position: relative;
+  padding-right: 24px;
+  padding-left: 24px;
+}
+
+/* vertical line */
+.panel.domain-panel .panel-body::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: calc(100% - 120px); /* leave some top/bottom breathing room */
+  background: rgba(255,255,255,0.85);
+  left: 58%;
+  top: 60px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  opacity: 0.95;
+}
+
+/* down-arrow head at bottom of vertical line */
+.panel.domain-panel .panel-body::after {
+  content: "";
+  position: absolute;
+  left: 58%;
+  transform: translateX(-50%);
+  top: calc(60px + (100% - 120px)); /* place at bottom of the line */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 14px solid rgba(255,255,255,0.95);
+  opacity: 0.95;
+}
+
+/* layout inside panels */
+.panel-body { display:flex; gap: 36px; align-items:flex-start; }
+.grid-2 { display:flex; gap: 54px; align-items:flex-start; }
+.left { flex:1; min-width:320px; }
+.right { flex:1; }
+
+.categories { display:flex; flex-wrap:wrap; gap:18px; }
+.col { width:48%; }
+.col h4 { color:#fff; font-size:16px; margin-bottom:8px; }
+label { display:block; margin-bottom:12px; color:#ddd; font-size:17px; }
+input[type="checkbox"] { margin-right:8px; }
+
+.btn-secondary {
+  display:inline-block;
+  padding:14px 20px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:transparent;
+  color:#fff;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+/* File pill */
+.file-pill {
+  display:inline-block;
+  background:#efefef;
+  color:#111;
+  padding:16px 30px;
+  border-radius:40px;
+  cursor:pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.22);
+  margin:8px 0;
+  border: none;
+  position:relative;
+}
+.file-pill input { position:absolute; left:-9999px; opacity:0; }
+.file-text { font-weight:700; }
+.file-name{ color:#ddd; margin-top:8px; font-size:14px; }
+
+.label-box {
+  display:inline-block;
+  padding:14px 18px;
+  border-radius:8px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.08);
+  margin-right:12px;
+  color:#fff;
+}
+
+.select-box {
+  padding:12px 16px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:transparent;
+  color:#fff;
+}
+
+/* Make select dropdown options readable on most browsers:
+   - keep option background dark and text white so the dropdown contents are visible.
+   - note: some browsers limit styling of <option> — this helps majority. */
+.select-box option {
+  background: #111;
+  color: #fff;
+}
+
+/* CTA */
+.center { margin-top:30px; }
+.cta {
+  display:inline-block;
+  padding:18px 56px;
+  border-radius:40px;
+  background:#efefef;
+  color:#111;
+  font-weight:700;
+  border:0;
+  box-shadow: 0 20px 36px rgba(0,0,0,0.25);
+  cursor:pointer;
+}
+.cta.small { padding:10px 24px; border-radius:28px; }
+.cta:hover { transform:translateY(-4px); transition:all .25s; }
+
+.panel-body .right { display:flex; align-items:center; justify-content:center; }
+
+/* -----------------------------
+   POSITION + SIZE ADJUSTMENTS
+   ----------------------------- */
+
+/* Position GET DOMAIN button inside the domain-panel:
+   now: 15% from RIGHT, 30% from BOTTOM of the panel */
+.panel.domain-panel #getDomainBtn,
+.panel.domain-panel .get-domain-btn {
+  position: absolute;
+  right: 15%;
+  bottom: 30%;
+  z-index: 20;
+  padding: 18px 46px;
+  border-radius: 36px;
+  background: #efefef;
+  color: #111;
+  font-weight: 700;
+  box-shadow: 0 20px 36px rgba(0,0,0,0.25);
+  border:0;
+  cursor: pointer;
+}
+
+/* Domain Skill Match - analyze button:
+   place at 40% from top of its panel and size like GET DOMAIN */
+#match-section .panel { position: relative; }
+#analyzeBtn {
+  position: absolute;
+  top: 40%;
+  right: 30%;
+  transform: translateY(-0%); 
+  padding: 18px 46px;         
+  border-radius: 36px;
+  background: #efefef;
+  color: #111;
+  font-weight: 700;
+  box-shadow: 0 20px 36px rgba(0,0,0,0.25);
+  border: 0;
+  cursor: pointer;
+  z-index: 20;
+}
+
+/* Resume Improvement - analyze button: match size and position (40% from top) */
+#improve-section .panel { position: relative; }
+#improveBtn {
+  position: absolute;
+  top: 40%;
+  right: 30%;
+  transform: translateY(-0%);
+  padding: 18px 46px;
+  border-radius: 36px;
+  background: #efefef;
+  color: #111;
+  font-weight: 700;
+  box-shadow: 0 20px 36px rgba(0,0,0,0.25);
+  border: 0;
+  cursor: pointer;
+  z-index: 20;
+}
+
+/* --- Analyze button uses same hover animation as home pills --- */
+
+#analyzeBtn,
+#improveBtn,
+#getDomainBtn {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#analyzeBtn:hover,
+#improveBtn:hover,
+#getDomainBtn:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 24px 40px rgba(0,0,0,0.30);
+}
+
+
+
+ /* Overlay message */
+.msg-overlay {
+  position: fixed;
+  left: 0; right: 0; top: 0; bottom: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,0,0,0.5);
+  z-index: 9999;
+}
+.msg-overlay.hidden { display:none; }
+.msg-box {
+  background: #111;
+  color: #fff;
+  padding: 26px 28px;
+  border-radius: 12px;
+  text-align:center;
+  min-width: 300px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.6);
+}
+.msg-box p { font-size:18px; margin-bottom:16px; font-weight:700; letter-spacing:0.6px; }
+
+
+
+/* result panel container (used by improve_result.html) */
+.improve-result-panel {
+  width: 90%;
+  max-width: 1400px;
+  margin: 28px auto;
+  border-radius: 30px;
+  padding: 48px 36px;
+  box-shadow: 0 22px 48px rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.02);
+  color: #fff;
+}
+
+/* Title: white + highlight for IMPROVEMENT */
+.improve-result-panel .section-title {
+  font-size: 64px;
+  color: #fff;
+  margin-bottom: 28px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.improve-result-panel .section-title span { color: #ff8200; }
+
+/* large rounded suggestions box */
+.improve-suggestions {
+  margin-top: 18px;
+  padding: 40px 48px;
+  border-radius: 56px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(232,232,232,0.96));
+  color: #111;
+  box-shadow: inset 0 6px 18px rgba(0,0,0,0.04), 0 12px 36px rgba(0,0,0,0.18);
+  font-weight:700;
+  font-size:22px;
+  min-height: 240px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-start;
+}
+
+/* suggestions list style inside the box */
+.improve-suggestions ul {
+  list-style: disc;
+  padding-left: 28px;
+  margin: 0;
+}
+.improve-suggestions li {
+  margin-bottom: 12px;
+  color: #111;
+  font-weight:700;
+  font-size:20px;
+}
+
+/* small responsive adjustments */
+@media (max-width: 900px){
+  .improve-result-panel { padding: 22px; }
+  .improve-result-panel .section-title { font-size:40px; }
+  .improve-suggestions { padding: 20px; font-size:18px; min-height:160px; }
+  .improve-suggestions li { font-size:16px; }
+}
+
+/* Responsive general rules (kept) */
+@media (max-width: 1100px) {
+  .hero-container { flex-direction:column; gap:18px; align-items:flex-start; }
+  .hero-right {
+    left: 0;                     /* remove shift on mobile */
+    width: 100%;
+    align-items: center;
+  }
+  .panel-body { flex-direction:column; gap: 18px; }
+  .grid-2 { flex-direction:column; gap: 18px; }
+  .col { width:100%; }
+  .hero-career { font-size: 56px; }
+  .hero-guidance { font-size: 44px; }
+  .panel { padding: 36px 24px; min-height: auto; }
+  .section-wrap { margin: 18px auto; width: 95%; }
+  .pill { align-self:center; width: 84%; }
+
+  /* On small screens we revert absolute buttons to flow so they don't overlap content */
+  .panel.domain-panel #getDomainBtn,
+  #analyzeBtn,
+  #improveBtn {
+    position: static;
+    margin: 20px auto 0;
+    display: block;
+    right: auto;
+    top: auto;
+    bottom: auto;
+  }
+}
+
+footer { padding: 40px 0; text-align:center; color:#777; margin-top: 30px; }
+
+/* 
+   CLOSE (X) BUTTON – RESULT PAGES
+ */
+
+.close-btn {
+  position: absolute;
+  top: 28px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255,255,255,0.95);
+  color: #111;
+  font-size: 26px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.close-btn:hover {
+  transform: scale(1.1);
+}
+

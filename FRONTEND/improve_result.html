@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resume Improvement - Result</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    body.fade-out {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .improve-result-panel {
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 28px;
+      right: 32px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.95);
+      color: #111;
+      font-size: 26px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+    }
+  </style>
+</head>
+
+<body style="background-image:url('bg-dark.png'); background-size:cover;">
+
+  <div class="improve-result-panel" role="main">
+    <!-- ❌ ADDED -->
+    <button class="close-btn" onclick="goHome()">×</button>
+
+    <div class="section-title">RESUME <span>IMPROVEMENT</span></div>
+
+    <div class="improve-suggestions">
+      <ul id="suggestionsList"></ul>
+    </div>
+  </div>
+
+  <script>
+    function goHome() {
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = "index.html#top";
+      }, 300);
+    }
+
+    (function(){
+      const data = JSON.parse(localStorage.getItem('cg_result') || '{}');
+      const el = document.getElementById('suggestionsList');
+      el.innerHTML = (data.suggestions || ['No suggestions available'])
+        .map(s => `<li>${s}</li>`).join('');
+    })();
+  </script>
+
+</body>
+</html>

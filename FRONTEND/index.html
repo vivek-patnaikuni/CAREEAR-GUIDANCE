@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Career Guidance</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- PDF.js for resume text extraction -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js";
+  </script>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-dark">
+      <div class="hero-container">
+
+        <div class="hero-left">
+          <div class="hero-career">CAREER</div>
+          <div class="hero-guidance">GUIDANCE</div>
+        </div>
+
+        <div class="hero-right">
+          <button class="pill" data-scroll="#domain-section">Domain Recommendation</button>
+          <button class="pill" data-scroll="#match-section">Domain Skill Match</button>
+          <button class="pill" data-scroll="#improve-section">Resume Improvement</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DOMAIN RECOMMENDATION -->
+  <section id="domain-section" class="section-wrap">
+    <div class="panel domain-panel">
+
+      <h2 class="section-title">DOMAIN <span>RECOMMENDATION</span></h2>
+
+      <div class="panel-body">
+
+        <div class="left">
+          <div class="btn-secondary">SELECT YOUR INTEREST</div>
+
+          <div class="categories">
+            <div class="col">
+              <h4>Creative:</h4>
+              <label><input type="checkbox" name="interest" value="designing"> Designing</label>
+              <label><input type="checkbox" name="interest" value="creative"> Creative thinking</label>
+              <label><input type="checkbox" name="interest" value="uiux"> UI/UX</label>
+
+              <h4>Technical:</h4>
+              <label><input type="checkbox" name="interest" value="developing"> Developing</label>
+              <label><input type="checkbox" name="interest" value="apps"> Building apps</label>
+              <label><input type="checkbox" name="interest" value="coding"> Coding</label>
+
+              <h4>Analytical:</h4>
+              <label><input type="checkbox" name="interest" value="data"> Data handling</label>
+              <label><input type="checkbox" name="interest" value="math"> Math-related</label>
+              <label><input type="checkbox" name="interest" value="problem"> Problem solving</label>
+            </div>
+
+            <div class="col">
+              <h4>Security:</h4>
+              <label><input type="checkbox" name="interest" value="security"> Security</label>
+              <label><input type="checkbox" name="interest" value="ethical"> Ethical hacking</label>
+
+              <h4>General:</h4>
+              <label><input type="checkbox" name="interest" value="games"> Games</label>
+              <label><input type="checkbox" name="interest" value="mobile"> Mobile apps</label>
+              <label><input type="checkbox" name="interest" value="aitools"> AI tools</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div style="text-align:center;">
+            <div class="label-box">UPLOAD YOUR RESUME</div>
+
+            <label class="file-pill">
+              <input id="file-input-domain" type="file" accept="application/pdf" />
+              <span class="file-text">Choose File</span>
+            </label>
+
+            <div id="file-name-domain" class="file-name">No file chosen</div>
+          </div>
+        </div>
+
+      </div>
+
+      <button id="getDomainBtn" class="cta">GET DOMAIN</button>
+
+    </div>
+  </section>
+
+  <!-- DOMAIN SKILL MATCH -->
+  <section id="match-section" class="section-wrap">
+    <div class="panel">
+
+      <h2 class="section-title">DOMAIN SKILL <span>MATCH</span></h2>
+
+      <div class="panel-body">
+
+        <div class="left">
+
+          <div style="margin-bottom:18px;">
+            <div class="label-box">Domain name</div>
+
+            <select id="domainSelect" class="select-box domain-select">
+              <option value="AI">Artificial Intelligence</option>
+              <option value="Web">Web Development</option>
+              <option value="Cloud">Cloud Computing</option>
+              <option value="Cyber">Cyber Security</option>
+              <option value="Data">Data Analyst</option>
+              <option value="Mobile">Mob App Development</option>
+            </select>
+          </div>
+
+          <div class="btn-secondary">UPLOAD YOUR RESUME</div>
+
+          <label class="file-pill">
+            <input id="file-input-match" type="file" accept="application/pdf" />
+            <span class="file-text">Choose File</span>
+          </label>
+
+          <div id="file-name-match" class="file-name">No file chosen</div>
+
+        </div>
+
+        <div class="right">
+          <button id="analyzeBtn" class="cta small">ANALYZE</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- RESUME IMPROVEMENT -->
+  <section id="improve-section" class="section-wrap">
+    <div class="panel">
+
+      <h2 class="section-title">RESUME <span>IMPROVEMENT</span></h2>
+
+      <div class="panel-body">
+
+        <div class="left">
+
+          <div class="btn-secondary">UPLOAD YOUR RESUME</div>
+
+          <label class="file-pill">
+            <input id="file-input-improve" type="file" accept="application/pdf" />
+            <span class="file-text">Choose File</span>
+          </label>
+
+          <div id="file-name-improve" class="file-name">No file chosen</div>
+
+        </div>
+
+        <div class="right">
+          <button id="improveBtn" class="cta small">ANALYZE</button>
+        </div>
+
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Overlay -->
+  <div id="overlayMsg" class="msg-overlay hidden" aria-hidden="true">
+    <div class="msg-box">
+      <p id="overlayText">PLEASE UPLOAD YOUR RESUME</p>
+      <div style="text-align:center;">
+        <button id="overlayOk" class="cta small">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>PROJECT BY VIVEK PATNAIK</p>
+  </footer>
+
+  <!-- MAIN JS -->
+  <script src="app.js"></script>
+
+</body>
+</html>
